@@ -31,52 +31,52 @@ function playSound(type) {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     
     if (type === 'move') {
-      // Player move - bright lofi wooden tap (higher pitch, quicker)
+      // Player move - lofi "tic" (higher, crisp)
       const osc = audioContext.createOscillator();
       const gain = audioContext.createGain();
       const filter = audioContext.createBiquadFilter();
       
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(550, audioContext.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(380, audioContext.currentTime + 0.1);
+      osc.frequency.setValueAtTime(620, audioContext.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(420, audioContext.currentTime + 0.09);
       
       filter.type = 'lowpass';
       filter.frequency.value = 2400;
-      filter.Q.value = 3;
+      filter.Q.value = 2.5;
       
-      gain.gain.setValueAtTime(0.28, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.02, audioContext.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.25, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.02, audioContext.currentTime + 0.09);
       
       osc.connect(filter);
       filter.connect(gain);
       gain.connect(audioContext.destination);
       
       osc.start(audioContext.currentTime);
-      osc.stop(audioContext.currentTime + 0.1);
+      osc.stop(audioContext.currentTime + 0.09);
       
     } else if (type === 'opponent') {
-      // Opponent move - deep lofi boom (lower pitch, longer decay)
+      // Opponent move - lofi "tak" (lower, rounder)
       const osc = audioContext.createOscillator();
       const gain = audioContext.createGain();
       const filter = audioContext.createBiquadFilter();
       
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(280, audioContext.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(180, audioContext.currentTime + 0.25);
+      osc.frequency.setValueAtTime(260, audioContext.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(160, audioContext.currentTime + 0.22);
       
       filter.type = 'lowpass';
-      filter.frequency.value = 1600;
-      filter.Q.value = 2.5;
+      filter.frequency.value = 1500;
+      filter.Q.value = 2.2;
       
-      gain.gain.setValueAtTime(0.26, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.02, audioContext.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.28, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.02, audioContext.currentTime + 0.22);
       
       osc.connect(filter);
       filter.connect(gain);
       gain.connect(audioContext.destination);
       
       osc.start(audioContext.currentTime);
-      osc.stop(audioContext.currentTime + 0.25);
+      osc.stop(audioContext.currentTime + 0.22);
       
     } else if (type === 'win') {
       // Victory - gentle lofi melody
