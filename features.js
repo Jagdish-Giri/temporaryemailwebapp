@@ -96,7 +96,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Auto-start music when page loads
-  playBackgroundMusic();
-
 });
