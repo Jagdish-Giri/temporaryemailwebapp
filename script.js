@@ -26,13 +26,26 @@ const scoreO = document.getElementById('scoreO');
 const scoreDraw = document.getElementById('scoreDraw');
 const loader = document.getElementById('loader');
 
-// Hide loader on page load
+// Hide loader and load scores on page load
 window.addEventListener('load', () => {
   setTimeout(() => {
     if (loader) {
       loader.classList.add('hidden');
     }
   }, 500);
+  
+  // Load scores from localStorage
+  const saved = localStorage.getItem('tictactoe_scores');
+  if (saved) {
+    const loaded = JSON.parse(saved);
+    // Ensure all scores are numbers, not strings
+    scores = {
+      X: parseInt(loaded.X, 10) || 0,
+      O: parseInt(loaded.O, 10) || 0,
+      draw: parseInt(loaded.draw, 10) || 0
+    };
+    updateScore();
+  }
 });
 function playSound(type) {
   try {
@@ -326,6 +339,8 @@ function updateScore() {
   scoreX.textContent = scores.X;
   scoreO.textContent = scores.O;
   scoreDraw.textContent = scores.draw;
+  // Save to localStorage immediately after updating
+  localStorage.setItem('tictactoe_scores', JSON.stringify(scores));
 }
 
 // Mode Selection
@@ -347,16 +362,4 @@ aiBtn.addEventListener('click', () => {
 // Reset Button
 resetBtn.addEventListener('click', initGame);
 
-// Load scores from localStorage
-window.addEventListener('load', () => {
-  const saved = localStorage.getItem('tictactoe_scores');
-  if (saved) {
-    scores = JSON.parse(saved);
-    updateScore();
-  }
-});
 
-// Save scores to localStorage
-window.addEventListener('beforeunload', () => {
-  localStorage.setItem('tictactoe_scores', JSON.stringify(scores));
-});

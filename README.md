@@ -5,7 +5,6 @@ Tic Tac Toe (2-Player & AI)
 Features
 - Local 2-player mode and AI opponent (win → block → random strategy).
 - Dark theme with modern UI design, smooth animations.
-- Auto-playing lo-fi background music (🎵/🎶 toggle button).
 - Move sounds (tic/tak), win/lose melodies, responsive mobile design.
 - Score tracking with persistence across sessions.
 

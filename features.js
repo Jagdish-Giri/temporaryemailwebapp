@@ -1,14 +1,15 @@
 // ===== WAIT FOR DOM =====
 document.addEventListener('DOMContentLoaded', () => {
-  
-  // Force dark theme always
-  document.body.classList.add('dark-theme');
-
   // ===== BACKGROUND MUSIC =====
   let audioContext = null;
   let oscillators = [];
   let musicPlaying = false;
   const musicBtn = document.getElementById('musicBtn');
+  const pausedIcon = '🎵✖';
+  const playingIcon = '🎶';
+
+  // Default to paused icon until playback starts
+  musicBtn.textContent = pausedIcon;
 
   function initAudioContext() {
     if (!audioContext) {
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const ctx = initAudioContext();
       musicPlaying = true;
-      musicBtn.textContent = '🎶';
+      musicBtn.textContent = playingIcon;
       
       const notes = [262, 294, 330, 349]; // C, D, E, F
       let noteIndex = 0;
@@ -64,12 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
       playLofiLoop();
     } catch (e) {
       console.log('Audio error:', e);
+      musicPlaying = false;
+      musicBtn.textContent = pausedIcon;
     }
   }
 
   function stopBackgroundMusic() {
     musicPlaying = false;
-    musicBtn.textContent = '🎵';
+    musicBtn.textContent = pausedIcon;
     
     oscillators.forEach(osc => {
       try {
